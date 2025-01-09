@@ -1,8 +1,9 @@
 from . import Database
 import time
 from .util import random_string
+import os
 
-
+# *fungsi yang akan membuat file ketika file belum ada
 def create_first_data():
     penulis = input("penulis: ")
     judul = input("judul: ")
@@ -34,6 +35,7 @@ def create_first_data():
         print("penambahan gagal,Mulai ulang program!!!")
     
 
+# *Fungsi untuk membaca semua buku yang ada di dalam file,dan menampilkannya
 def read(**kwargs):
     try:
         with open(Database.DB_NAME,"r") as file:
@@ -51,6 +53,8 @@ def read(**kwargs):
         print("error membaca database!!")
         return False
     
+
+# *fungsi untuk membuat buku baru (judul,penulis,tahun)
 def create(tahun,judul,penulis):
     data = Database.TEMPLATE.copy()
 
@@ -68,6 +72,7 @@ def create(tahun,judul,penulis):
         print("penambahan gagal,Mulai ulang program!!!")
 
 
+# *fungsi untuk mengubah nilai (penulis ,judul,tahun)
 def update(no_buku,pk,data_add,judul,penulis,tahun):
     data = Database.TEMPLATE.copy()
 
@@ -88,4 +93,24 @@ def update(no_buku,pk,data_add,judul,penulis,tahun):
     except Exception as error:
         print("error mengupdate database!!!")
         print(f"ERROR : {error}")
-    
+
+
+# *fungsi untuk menghapus buku
+def delete(no_buku):
+    try:
+        with open(Database.DB_NAME,"r") as file:
+            counter = 0
+            while(True):
+                content = file.readline()
+                if len(content) == 0:
+                    break
+                elif counter == no_buku - 1:
+                    pass
+                else:
+                    with open("data-temp.txt","a",encoding="utf-8") as temporary_file:
+                        temporary_file.write(content)
+                counter += 1
+    except:
+        print("error gagal menghapus buku !!!")
+
+    os.replace("data-temp.txt",Database.DB_NAME)

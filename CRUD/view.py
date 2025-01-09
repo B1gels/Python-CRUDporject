@@ -95,6 +95,7 @@ def update_console():
         print(f"1. Judul\t: {judul:.40}")
         print(f"2. Penulis\t: {penulis:.40}")
         print(f"3. Tahun\t: {tahun:4}")
+
         is_done = input("apakah selesai update?[y/n] : ")
         if is_done == "y" or is_done == "Y":
             break
@@ -103,4 +104,32 @@ def update_console():
 
 
 def delete_console():
-    print("ini delete Console")
+    read_console()
+    while True:
+        print("Silahkan pilih nomor buku yang ingin delete:")
+        no_buku = int(input("Nomor Buku\t: "))
+        data_buku = operasi.read(index=no_buku)
+
+        if data_buku:
+            data_break = data_buku.split(",")
+            pk = data_break[0]
+            data_add = data_break[1]
+            penulis = data_break[2]
+            judul = data_break[3]
+            tahun = data_break[4][:-1]
+
+            print("\n"+"="*100)
+            print("Berikut data yang akan dihapus permanen :(\n")
+            print(f"1.Judul  \t: {judul:.40}")
+            print(f"2.penulis\t: {penulis:.40}")
+            print(f"3.tahun  \t: {tahun:4}")
+        else:
+            print("nomor tidak valid,silahkan masukkan lagi")
+
+        
+        
+        is_done = input("\nAnda akan menghapus permanen?[y/n] : ")
+        if is_done == "y" or is_done == "Y":
+            operasi.delete(no_buku)
+            break
+    
