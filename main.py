@@ -40,7 +40,7 @@ while True:
         case "3":
             CRUD.update_console()
         case "4":
-            print("\tDelete Data")
+            CRUD.delete_console()
         case _:
             print("masukkan pilihan yang valid!!")
             

@@ -100,3 +100,7 @@ def update_console():
             break
     
     operasi.update(no_buku,pk,data_add,judul,penulis,tahun)
+
+
+def delete_console():
+    print("ini delete Console")
